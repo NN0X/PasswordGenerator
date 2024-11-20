@@ -59,7 +59,7 @@ std::vector<std::string> loadWordsFromDictionary(const std::string& lang, std::v
 			int j = std::distance(indexes.begin(), it);
 			if (it != indexes.end())
 			{
-				if (splitted[i].size() < 4 || splitted[i].size() > 10)
+				if (splitted[i].size() < MIN_WORD_LENGTH || splitted[i].size() > MAX_WORD_LENGTH)
 				{
 					indexes[j] += 1;
 					makeIndexesUnique(indexes);

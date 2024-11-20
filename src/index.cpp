@@ -15,18 +15,18 @@ void makeIndexesUnique(std::vector<int>& indexes)
 	}
 }
 
-int generateRandomIndex(int maxIndex)
+int generateRandomIndex(int maxIndex, int min=0)
 {
-	return rand() % maxIndex;
+	return rand() % (maxIndex - min) + min;
 }
 
-std::vector<int> generateRandomIndexes(int count, int maxIndex)
+std::vector<int> generateRandomIndexes(int count, int maxIndex, int min=0)
 {
 	std::vector<int> indexes;
 	indexes.reserve(count);
 	for (int i = 0; i < count; i++)
 	{
-		indexes.push_back(generateRandomIndex(maxIndex));
+		indexes.push_back(generateRandomIndex(maxIndex, min));
 	}
 
 	return indexes;
