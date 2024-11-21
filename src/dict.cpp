@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <fstream>
 #include <vector>
 #include <algorithm>
@@ -5,9 +7,13 @@
 #include "index.h"
 #include "defines.h"
 
-int loadDictionaryIndex(const std::string& lang)
+int loadDictionaryIndex(const std::string& lang, bool verbose=false)
 {
 	std::string path = "resources/" DICTIONARY_PATH + lang;
+	if (verbose)
+	{
+		std::cout << "Loading dictionary from " << path << "\n";
+	}
 	std::ifstream file(path);
 	int maxIndex = 0;
 	std::string line;
@@ -23,12 +29,20 @@ int loadDictionaryIndex(const std::string& lang)
 		}
 	}
 	file.close();
-
+	
+	if (verbose)
+	{
+		std::cout << "Dictionary loaded with " << maxIndex << " words\n";
+	}
 	return maxIndex;
 }
 
-std::vector<std::string> loadWordsFromDictionary(const std::string& lang, std::vector<int>& indexes)
+std::vector<std::string> loadWordsFromDictionary(const std::string& lang, std::vector<int>& indexes, bool verbose=false)
 {
+	if (verbose)
+	{
+		std::cout << "Loading words from dictionary\n";
+	}
 	std::string path = "resources/" DICTIONARY_PATH + lang;
 	std::ifstream file(path);
 	std::vector<std::string> words;
@@ -73,6 +87,11 @@ std::vector<std::string> loadWordsFromDictionary(const std::string& lang, std::v
 		index += splitted.size();
 	}
 	file.close();
+
+	if (verbose)
+	{
+		std::cout << "Words loaded\n";
+	}
 
 	return words;
 }

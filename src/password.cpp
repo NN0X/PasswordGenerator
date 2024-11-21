@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -6,10 +7,14 @@
 #include "index.h"
 #include "defines.h"
 
-char loadSimilar(char letter)
+char loadSimilar(char letter, bool verbose=false)
 {
 	std::string letterStr(1, letter);
 	std::string path = "resources/" SIMILARITIES_PATH + letterStr;
+	if (verbose)
+	{
+		std::cout << "Loading similar letters from " << path << "\n";
+	}
 	std::ifstream file(path);
 	std::vector<std::string> allSimilar;
 	std::string line;
@@ -21,11 +26,19 @@ char loadSimilar(char letter)
 
 	int index = generateRandomIndex(allSimilar.size());
 
+	if (verbose)
+	{
+		std::cout << "Loaded similar letter " << allSimilar[index][0] << "\n";
+	}
 	return allSimilar[index][0];
 }
 
-std::string styleWord(const std::string& word)
+std::string styleWord(const std::string& word, bool verbose=false)
 {
+	if (verbose)
+	{
+		std::cout << "Styling word\n";
+	}
 	int count = generateRandomIndex(word.size());
 	std::vector<int> indexesChanged;
 	indexesChanged.reserve(count);
@@ -54,11 +67,20 @@ std::string styleWord(const std::string& word)
 		}
 	}
 
+	if (verbose)
+	{
+		std::cout << "Styled word: " << styledWord << "\n";
+	}
+
 	return styledWord;
 }
 
-std::vector<std::string> styleWords(const std::vector<std::string>& words)
+std::vector<std::string> styleWords(const std::vector<std::string>& words, bool verbose=false)
 {
+	if (verbose)
+	{
+		std::cout << "Styling words\n";
+	}
 	std::vector<std::string> styledWords;
 	styledWords.reserve(words.size());
 	for (size_t i = 0; i < words.size(); i++)
@@ -66,11 +88,19 @@ std::vector<std::string> styleWords(const std::vector<std::string>& words)
 		styledWords.push_back(styleWord(words[i]));
 	}
 
+	if (verbose)
+	{
+		std::cout << "Styled words\n";
+	}
 	return styledWords;
 }
 
-std::string combineWords(const std::vector<std::string>& words, const std::string& separator)
+std::string combineWords(const std::vector<std::string>& words, const std::string& separator, bool verbose=false)
 {
+	if (verbose)
+	{
+		std::cout << "Combining words\n";
+	}
 	std::string combined = "";
 	for (size_t i = 0; i < words.size(); i++)
 	{
@@ -81,5 +111,9 @@ std::string combineWords(const std::vector<std::string>& words, const std::strin
 		}
 	}
 
+	if (verbose)
+	{
+		std::cout << "Combined words\n";
+	}
 	return combined;
 }

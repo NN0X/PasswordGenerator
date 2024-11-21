@@ -3,18 +3,59 @@
 #include "index.h"
 #include "dict.h"
 #include "password.h"
+#include "cli.h"
 #include "defines.h"
 
-int main()
+int main(int argc, char **argv)
 {
 	srand(time(NULL));
-	int maxIndex = loadDictionaryIndex("pl");
+	
+	Settings settings = parseArgs(argc, argv);
+	if (settings.exit)
+	{
+		return 0;
+	}
 
-	std::vector<int> indexes = generateRandomIndexes(4, maxIndex);
-	std::vector<std::string> words = loadWordsFromDictionary("pl", indexes);
+	int maxIndex = loadDictionaryIndex(settings.language);
 
-	words = styleWords(words);
-	std::string combined = combineWords(words, "_");
-	std::cout << combined << std::endl;
+	for (int i = 0; i < settings.numPasswords; i++)
+	{
+		if (settings.verbose)
+		{
+			std::cout << "Generating password " << i + 1 << " of " << settings.numPasswords << "\n";
+		}
+		if (settings.targetLength != -1)
+		{
+			settings.numWords = settings.targetLength / MIN_PASSWORD_LENGTH;
+			if (settings.verbose)
+			{
+				std::cout << "Target length set, generating " << settings.numWords << " words\n";
+			}
+		}
+		if (settings.verbose)
+		{
+			std::cout << "Generating " << settings.numWords << " words\n";
+		}
+		std::vector<int> indexes = generateRandomIndexes(settings.numWords, maxIndex, settings.verbose);
+		std::vector<std::string> words = loadWordsFromDictionary(settings.language, indexes, settings.verbose);
+		
+		if (settings.style)
+		{
+			words = styleWords(words, settings.verbose);
+		}
+		std::string combined = combineWords(words, settings.separator, settings.verbose);
+		if (combined.size() + settings.numWords - 1 < settings.targetLength && settings.targetLength != -1)
+		{
+			i--;
+			if (settings.verbose)
+			{
+				std::cout << "Password target length: " << settings.targetLength << " is not greater than generated length: " << combined.size() + settings.numWords - 1 << ", regenerating\n";
+			}
+		}
+		else
+		{
+			std::cout << combined << "\n";
+		}
+	}
 	return 0;
 }
