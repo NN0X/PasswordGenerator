@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	int maxIndex = loadDictionaryIndex(settings.language);
+	int maxIndex = loadDictionaryIndex(settings.language, settings.verbose, settings.binary);
 
 	for (int i = 0; i < settings.numPasswords; i++)
 	{
@@ -37,11 +37,11 @@ int main(int argc, char **argv)
 			std::cout << "Generating " << settings.numWords << " words\n";
 		}
 		std::vector<int> indexes = generateRandomIndexes(settings.numWords, maxIndex, settings.verbose);
-		std::vector<std::string> words = loadWordsFromDictionary(settings.language, indexes, settings.verbose);
+		std::vector<std::string> words = loadWordsFromDictionary(settings.language, indexes, settings.verbose, settings.binary);
 		
 		if (settings.style)
 		{
-			words = styleWords(words, settings.verbose);
+			words = styleWords(words, settings.verbose, settings.binary);
 		}
 		std::string combined = combineWords(words, settings.separator, settings.verbose);
 		if (combined.size() + settings.numWords - 1 < settings.targetLength && settings.targetLength != -1)

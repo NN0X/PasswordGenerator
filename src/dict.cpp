@@ -7,9 +7,9 @@
 #include "index.h"
 #include "defines.h"
 
-int loadDictionaryIndex(const std::string& lang, bool verbose=false)
+int loadDictionaryIndex(const std::string& lang, bool verbose=false, std::string binary="")
 {
-	std::string path = "resources/" DICTIONARY_PATH + lang;
+	std::string path = std::string(binary) + std::string("/resources/") + DICTIONARY_PATH + lang;
 	if (verbose)
 	{
 		std::cout << "Loading dictionary from " << path << "\n";
@@ -37,13 +37,13 @@ int loadDictionaryIndex(const std::string& lang, bool verbose=false)
 	return maxIndex;
 }
 
-std::vector<std::string> loadWordsFromDictionary(const std::string& lang, std::vector<int>& indexes, bool verbose=false)
+std::vector<std::string> loadWordsFromDictionary(const std::string& lang, std::vector<int>& indexes, bool verbose=false, std::string binary="")
 {
 	if (verbose)
 	{
 		std::cout << "Loading words from dictionary\n";
 	}
-	std::string path = "resources/" DICTIONARY_PATH + lang;
+	std::string path = std::string(binary) + std::string("/resources/") + DICTIONARY_PATH + lang;
 	std::ifstream file(path);
 	std::vector<std::string> words;
 	words.reserve(indexes.size());

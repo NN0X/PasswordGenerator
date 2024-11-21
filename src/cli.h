@@ -5,6 +5,7 @@
 
 struct Settings
 {
+	std::string binary;
 	bool exit;
 	int numPasswords;
 	int numWords;

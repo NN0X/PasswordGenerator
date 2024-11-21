@@ -6,6 +6,22 @@
 Settings parseArgs(int argc, char** argv)
 {
 	Settings settings;
+	settings.binary = argv[0];
+	
+	size_t pos = settings.binary.find_last_of('/');
+	if (pos != std::string::npos)
+	{
+		settings.binary = settings.binary.substr(0, pos);
+	}
+	else
+	{
+		pos = settings.binary.find_last_of('\\');
+		if (pos != std::string::npos)
+		{
+			settings.binary = settings.binary.substr(0, pos);
+		}
+	}
+
 	settings.exit = false;
 	settings.numPasswords = DEFAULT_NUM_PASSWORDS;
 	settings.numWords = DEFAULT_NUM_WORDS;

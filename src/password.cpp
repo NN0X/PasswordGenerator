@@ -7,10 +7,10 @@
 #include "index.h"
 #include "defines.h"
 
-char loadSimilar(char letter, bool verbose=false)
+char loadSimilar(char letter, bool verbose=false, std::string binary="")
 {
 	std::string letterStr(1, letter);
-	std::string path = "resources/" SIMILARITIES_PATH + letterStr;
+	std::string path = std::string(binary) + std::string("/resources/") + SIMILARITIES_PATH + letterStr;
 	if (verbose)
 	{
 		std::cout << "Loading similar letters from " << path << "\n";
@@ -33,7 +33,7 @@ char loadSimilar(char letter, bool verbose=false)
 	return allSimilar[index][0];
 }
 
-std::string styleWord(const std::string& word, bool verbose=false)
+std::string styleWord(const std::string& word, bool verbose=false, std::string binary="")
 {
 	if (verbose)
 	{
@@ -53,7 +53,7 @@ std::string styleWord(const std::string& word, bool verbose=false)
 			char styledLetter;
 			if (SIMILAR.find(word[index]) != std::string::npos)
 			{
-				styledLetter = loadSimilar(word[index]);
+				styledLetter = loadSimilar(word[index], verbose, binary);
 			}
 			else
 			{
@@ -75,7 +75,7 @@ std::string styleWord(const std::string& word, bool verbose=false)
 	return styledWord;
 }
 
-std::vector<std::string> styleWords(const std::vector<std::string>& words, bool verbose=false)
+std::vector<std::string> styleWords(const std::vector<std::string>& words, bool verbose=false, std::string binary="")
 {
 	if (verbose)
 	{
@@ -85,7 +85,7 @@ std::vector<std::string> styleWords(const std::vector<std::string>& words, bool 
 	styledWords.reserve(words.size());
 	for (size_t i = 0; i < words.size(); i++)
 	{
-		styledWords.push_back(styleWord(words[i]));
+		styledWords.push_back(styleWord(words[i], verbose, binary));
 	}
 
 	if (verbose)
