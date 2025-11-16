@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "intredef.h"
+
 struct Settings
 {
 	std::string binary;

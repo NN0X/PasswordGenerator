@@ -3,6 +3,8 @@
 #include "cli.h"
 #include "defines.h"
 
+#include "intredef.h"
+
 Settings parseArgs(int argc, char** argv)
 {
 	Settings settings;

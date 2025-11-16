@@ -7,6 +7,8 @@
 #include "index.h"
 #include "defines.h"
 
+#include "intredef.h"
+
 int loadDictionaryIndex(const std::string& lang, bool verbose=false, std::string binary="")
 {
 	std::string path = std::string(binary) + std::string("/resources/") + DICTIONARY_PATH + lang;

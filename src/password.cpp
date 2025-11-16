@@ -7,6 +7,8 @@
 #include "index.h"
 #include "defines.h"
 
+#include "intredef.h"
+
 char loadSimilar(char letter, bool verbose=false, std::string binary="")
 {
 	std::string letterStr(1, letter);

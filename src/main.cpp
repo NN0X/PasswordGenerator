@@ -6,9 +6,12 @@
 #include "cli.h"
 #include "defines.h"
 
+#include "intredef.h"
+
+#undef int
 int main(int argc, char **argv)
 {
-	srand(time(NULL));
+#define int uint64_t
 	
 	Settings settings = parseArgs(argc, argv);
 	if (settings.exit)

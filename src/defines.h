@@ -8,6 +8,8 @@
 #define MIN_WORD_LENGTH 4
 #define MIN_PASSWORD_LENGTH 10
 
+#include "intredef.h"
+
 const inline std::string SIMILAR = "aeios";
 
 const inline int DEFAULT_NUM_PASSWORDS = 1;

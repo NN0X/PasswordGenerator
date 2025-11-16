@@ -1,5 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <random>
+
+#include "intredef.h"
 
 void makeIndexesUnique(std::vector<int>& indexes, bool verbose=false)
 {
@@ -30,7 +33,10 @@ int generateRandomIndex(int maxIndex, int min=0, bool verbose=false)
 	{
 		std::cout << "Generating random index\n";
 	}
-	int index = rand() % (maxIndex - min) + min;
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<> dis(min, maxIndex - 1);
+    int index = dis(gen);
 	if (verbose)
 	{
 		std::cout << "Generated index " << index << "\n";
