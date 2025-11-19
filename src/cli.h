@@ -5,15 +5,15 @@
 
 struct Settings
 {
-	std::string binary;
-	bool exit;
-	int numPasswords;
-	int numWords;
-	std::string language;
-	std::string separator;
-	bool style;
-	int targetLength;
-	bool verbose;
+        std::string binary;
+        bool exit;
+        int numPasswords;
+        int numWords;
+        std::string language;
+        std::string separator;
+        bool style;
+        int targetLength;
+        bool verbose;
 };
 
 Settings parseArgs(int argc, char** argv);

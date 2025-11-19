@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> styleWords(const std::vector<std::string>& words, bool verbose=false, std::string binary="");
+std::vector<std::string> styleWords(const std::vector<std::string>& words, bool verbose=false, const std::string& binary="");
 std::string combineWords(const std::vector<std::string>& words, const std::string& separator, bool verbose=false);
 
 #endif // PASSWORD_H
